@@ -1,13 +1,11 @@
 import {writable} from "svelte/store";
+import supabase from '$lib/supabaseClient';
 
 export const user = writable({
-    name: "Sachi",
     email: "xcorat@gmail.com",
+    authenticated: false,
 });
 
-let defaultUser = {
-    name: "Sachi",
-    email: "xcorat@gmail.com",
+export const signOut = () => {
+    supabase.auth.signOut();
 }
-
-user.set(defaultUser);
