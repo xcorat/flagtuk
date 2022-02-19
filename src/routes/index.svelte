@@ -68,6 +68,10 @@
 			log.update(value =>  [... value, locationString] );
 
 			if(loc){
+				// TODO: Distance calculation probably should be a derived store, 
+				// 	where we calculate the distance only when it is subscribed to.
+				// 	This will decouple the location and distance.
+				
 				//console.log(location.coords.latitude, location.coords.longitude, loc.coords.latitude, loc.coords.longitude);
 				let dp = distanceInKmBetweenEarthCoordinates(location.coords.latitude, location.coords.longitude, loc.coords.latitude, loc.coords.longitude);
 				distance += dp; 
