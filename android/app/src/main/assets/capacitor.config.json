@@ -1,0 +1,6 @@
+{
+	"appId": "com.xcorat.flagtuk",
+	"appName": "Flag Tuk",
+	"webDir": "build",
+	"bundledWebRuntime": false
+}

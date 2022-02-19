@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Flag Tuk</string>
+    <string name="title_activity_main">Flag Tuk</string>
+    <string name="package_name">com.xcorat.flagtuk</string>
+    <string name="custom_url_scheme">com.xcorat.flagtuk</string>
+</resources>
