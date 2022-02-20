@@ -1,6 +1,6 @@
 <script>
     import {onMount} from 'svelte';
-import { fix_position } from 'svelte/internal';
+    import { fix_position } from 'svelte/internal';
 
     let container;
     let map;

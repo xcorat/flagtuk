@@ -21,7 +21,7 @@
     });
 </script>
 
-<div class='p-8 max-w-6xl mx-auto'>
+<div class='max-w-6xl mx-auto bg-base-100 min-h-screen' data-theme="garden">
     <Nav/>
     <slot></slot>
 </div>

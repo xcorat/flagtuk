@@ -14,11 +14,11 @@ export const gun = Gun(['https://gun-manhattan.herokuapp.com/gun'])
 export const user = gun.user().recall({sessionStorage: true});
 
 // TODO: this is probably not the right way to do things (undefined or bool?)
-const testuser_alias = import.meta.env.GUN_TESTUSER_ALIAS as string;
-const testuser_pass = import.meta.env.GUN_TESTUSER_PASS as string;
+const testuser_alias = import.meta.env.VITE_GUN_TESTUSER_ALIAS as string;
+const testuser_pass = import.meta.env.VITE_GUN_TESTUSER_PASS as string;
+console.log(testuser_alias, testuser_pass)
 
 const authTestUser = () => {
-	console.log(user);
 	let checkFlagTukUser = false;
 	gun.get('~@test-flagtuk').once((data) => {
 		if(data === undefined){

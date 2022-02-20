@@ -3,7 +3,7 @@
 
 </script>
 <nav>
-<div  class="navbar bg-base-100 mb-40 shadow-xl rounded-xl">
+<div  class="navbar navbar-static-top bg-base-200 mb-4 shadow-xl">
     <div class="navbar-start">
         <div class="dropdown">
             <label tabindex="0" class="btn btn-ghost btn-circle">

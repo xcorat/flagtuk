@@ -5,6 +5,8 @@
 
 	import {log} from "../stores/log";
 
+	import Quicklinks from "../components/home/quicklinks.svelte"
+
 	// TODO: Move the location to a store, ideally a readable, so we can access it from anywhere
 	// 		readable store: https://svelte.dev/tutorial/readable-stores
 
@@ -71,7 +73,7 @@
 				// TODO: Distance calculation probably should be a derived store, 
 				// 	where we calculate the distance only when it is subscribed to.
 				// 	This will decouple the location and distance.
-				
+
 				//console.log(location.coords.latitude, location.coords.longitude, loc.coords.latitude, loc.coords.longitude);
 				let dp = distanceInKmBetweenEarthCoordinates(location.coords.latitude, location.coords.longitude, loc.coords.latitude, loc.coords.longitude);
 				distance += dp; 
@@ -104,15 +106,15 @@
 <svelte:head>
 	<title>Flag Tuk </title>
 </svelte:head>
-<h1 class='text-3xl text-center my-8 uppercase'>Flag Tuk</h1>
-
-<h1>{fileData}</h1>
-<div>
-	<h2>Geolocation</h2>
-	<p>Your location is: ({loc ? loc.coords.latitude + ', ' + loc.coords.longitude : 'Getting location...'})</p>
-	<p>Total Distance: {distance} km</p>
+<div class="flex-col">
+	<Quicklinks/>
+	<h1>{fileData}</h1>
+	<div>
+		<h2>Geolocation</h2>
+		<p>Your location is: ({loc ? loc.coords.latitude + ', ' + loc.coords.longitude : 'Getting location...'})</p>
+		<p>Total Distance: {distance} km</p>
+	</div>
 </div>
-
 
 <style>
 	h1 { color: red }

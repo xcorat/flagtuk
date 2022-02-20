@@ -8,16 +8,16 @@ function customStore(ref, methods = {}) {
 	const subscribers = []
 
 	function publish(data, key) {
-		  if (ref._.get === key) {    // for gun.get(key)
-				store = data
-			} else if (data) {          // for gun.get(key).map()
-				store[key] = data
-			} else {
-				delete store[key]
-			}
-		  for (let i = 0; i < subscribers.length; i += 1) {
-			  subscribers[i](store)
-		  }
+		if (ref._.get === key) {    // for gun.get(key)
+			store = data
+		} else if (data) {          // for gun.get(key).map()
+			store[key] = data
+		} else {
+			delete store[key]
+		}
+		for (let i = 0; i < subscribers.length; i += 1) {
+			subscribers[i](store)
+		}
 	}
 
 	function subscribe(subscriber) {
@@ -44,9 +44,30 @@ function customStore(ref, methods = {}) {
 	return { ...methods, subscribe }
 }
 
-const ref = gun.get("peers");
+const riderRef = gun.get('riders');
+export const riders = customStore(riderRef.map(), {
+	add: (username, location, timeout) => {
+		let rref = riderRef.set({
+			username,
+			location,
+			timeout,
+			icon: "🙋" 
+		});
+		// TODO: Probably there's a better way to get the key
+		let key = rref._['#']
+		console.log(rref);
+		setTimeout(() => { riderRef.get(key).put(null) }, timeout);
+	},
+	delete: key => riderRef.get(key).put(null),
+});
 
-export const peers = customStore(ref.map(), {
-	add: text => ref.set({ text, sender: "moi", icon: "😺" }),
-	delete: key => ref.get(key).put(null)
+const driverRef = gun.get("drivers");
+export const drivers = customStore(driverRef.map(), {
+	add: (username, location, ready) => driverRef.set({
+				username,
+				location,
+				ready,
+				icon: "🚕" 
+			}),
+	delete: key => driverRef.get(key).put(null),
 });
