@@ -1,8 +1,11 @@
 <script lang='ts'>
 	import {userStore} from "../stores/testuser";
-	import {log} from "../stores/log";
+	import {log, filesystemread, readDummyTextFile} from "../stores/log";
 	
+	let fileData = "";
+	filesystemread.subscribe( val => { fileData = val; })
 
+	readDummyTextFile();
 
 	function resetLog() {
 		$log = [];
@@ -14,6 +17,10 @@
 <svelte:head>
 	<title>Flag Tuk - Log </title>
 </svelte:head>
+
+
+
+<h1>{fileData}</h1>
 
 <h1 class="text-3xl text-center my-8 uppercase ">Log</h1>
 <button class='btn btn-primary' on:click={resetLog}>Reset Log</button>

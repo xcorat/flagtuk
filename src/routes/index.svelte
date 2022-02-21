@@ -1,9 +1,8 @@
 <script>
 	import { onMount } from 'svelte';
 	import { Geolocation } from '@capacitor/geolocation';
-	import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 
-	import {log} from "../stores/log";
+	import {log, filesystemread} from "../stores/log";
 	import { loc_data, travel_data } from '../stores/location';
 
 	import Quicklinks from "../components/home/quicklinks.svelte"
@@ -16,28 +15,9 @@
 
 	export const ssr = false;
 
-	async function readDummyTextFile() {
-		let file;
-		try {
-			file = await Filesystem.readFile({
-				path: 'dummy.txt',
-				directory: Directory.Data,
-				encoding: Encoding.UTF8
-			});
-			fileData = file.data;
-			return file;
-		} catch (e) {
-			await Filesystem.writeFile({
-				path: 'dummy.txt',
-				data: 'This is a dummy text file.',
-				directory: Directory.Data,
-				encoding: Encoding.UTF8
-			});
-			readDummyTextFile();
-		}
-	}
+
 	onMount(async () => {
-		readDummyTextFile();
+		filesystemread.subscribe( val => { fileData = val; })
 
 		// autosubscribe here gives an error. Possibly due to prerendering
 		loc_data.subscribe(val => { loc = val.loc; });
