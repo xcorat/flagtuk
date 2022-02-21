@@ -1,4 +1,4 @@
-import Gun from "gun/gun"
+import Gun from "gun/gun.js"
 import { gun } from "../lib/svelte-gun"
 
 // createStore() is a simpliefied version of a readable from svelte/store.

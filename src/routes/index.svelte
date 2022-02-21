@@ -4,6 +4,7 @@
 	import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 
 	import {log} from "../stores/log";
+	import { loc_data, travel_data } from '../stores/location';
 
 	import Quicklinks from "../components/home/quicklinks.svelte"
 
@@ -12,28 +13,9 @@
 
 	let fileData, loc;
 	let distance = 0.0;
-	async function getCurrentPosition() {
-		try {
-			console.log("@getCurrentPosition");
-			
-			const res = await Geolocation.getCurrentPosition();
 
-			let locationString = "(" + res.coords.latitude + ', ' + res.coords.longitude + ")" + 
-								 "| speed = "  + res.coords.speed;
-			$log = [... $log, locationString] ;
+	export const ssr = false;
 
-			loc = res;
-		} catch (e) {
-			console.log(e);
-			loc = {
-				coords: {
-					latitude: "Couldn't get location data",
-					longitude: "Couldn't get location data"
-				}
-			};
-		}
-		setTimeout(() => { getCurrentPosition(); }, 5000);
-	}
 	async function readDummyTextFile() {
 		let file;
 		try {
@@ -56,50 +38,12 @@
 	}
 	onMount(async () => {
 		readDummyTextFile();
-		let oldLocation = loc;
-		//getCurrentPosition();
-		Geolocation.watchPosition({
-			enableHighAccuracy: true,
-			timeout: 5000,
-			maximumAge: 5000
-		}, (location) => {
-			let locationString = "(" + location.coords.latitude + ', ' + location.coords.longitude + ")" + 
-								 "| speed = "  + location.coords.speed + " | distance = " + distance*1000;
 
-			// NOTE: `$log = ` syntax doesn't work properly. It seem to keep the old state even after reset
-			log.update(value =>  [... value, locationString] );
+		// autosubscribe here gives an error. Possibly due to prerendering
+		loc_data.subscribe(val => { loc = val.loc; });
+		travel_data.subscribe(val => { distance = val.dist; });
 
-			if(loc){
-				// TODO: Distance calculation probably should be a derived store, 
-				// 	where we calculate the distance only when it is subscribed to.
-				// 	This will decouple the location and distance.
-
-				//console.log(location.coords.latitude, location.coords.longitude, loc.coords.latitude, loc.coords.longitude);
-				let dp = distanceInKmBetweenEarthCoordinates(location.coords.latitude, location.coords.longitude, loc.coords.latitude, loc.coords.longitude);
-				distance += dp; 
-			}
-			loc = location
-		});
 	});
-
-	function degreesToRadians(degrees) {
-		return degrees * Math.PI / 180;
-	}
-
-	function distanceInKmBetweenEarthCoordinates(lat1, lon1, lat2, lon2) {
-		var earthRadiusKm = 6371;
-
-		var dLat = degreesToRadians(lat2-lat1);
-		var dLon = degreesToRadians(lon2-lon1);
-
-		lat1 = degreesToRadians(lat1);
-		lat2 = degreesToRadians(lat2);
-
-		var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-				Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
-		var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-		return earthRadiusKm * c;
-	}
 </script>
 
 
@@ -111,7 +55,8 @@
 	<h1>{fileData}</h1>
 	<div>
 		<h2>Geolocation</h2>
-		<p>Your location is: ({loc ? loc.coords.latitude + ', ' + loc.coords.longitude : 'Getting location...'})</p>
+		<!-- <p>Your location is: ({loc ? loc.coords.latitude + ', ' + loc.coords.longitude : 'Getting location...'})</p> -->
+		<p>Your location is: ({loc ? loc.lat + ', ' + loc.lng : 'Getting location...'})</p>
 		<p>Total Distance: {distance} km</p>
 	</div>
 </div>

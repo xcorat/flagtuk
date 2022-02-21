@@ -1,10 +1,10 @@
-import Gun from "gun/gun"
-import 'gun/sea'
-import 'gun/axe'
+import Gun from "gun/gun.js"
+import 'gun/sea.js'
+import 'gun/axe.js'
 // ERROR: importing `unset` throws an error - maybe related to SSR.
 // 		We don't use it anyway, so comment out for now
 //import unset from "gun/lib/unset"
-import open from "gun/lib/open"
+import open from "gun/lib/open.js"
 
 // NOTE: Copied most of the sample code for Gun from:
 //	https://svelte.dev/repl/53ecf1dc52c245faba204f3ca94d5cde?version=3.16.5

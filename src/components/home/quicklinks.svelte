@@ -15,7 +15,7 @@
   <a class="flex flex-col content-between" href="{quicklink.link}">
     <!-- TODO: How the fuck do we make the text go to the bottom here? -->
     <figure class="px-10 pt-10 max-h-54"><img src="{quicklink.image_path}" alt="{quicklink.id}"></figure>
-    <div class="card-body text-center border-2">
+    <div class="card-body text-center">
       <h2 class="card-title">{quicklink.title}</h2>
     </div>
   </a>
