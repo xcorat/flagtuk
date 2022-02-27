@@ -15,7 +15,8 @@ git --verbose https://github.com/xcorat/flagtuk.git
 npm i
 ```
 3. Add private tokens to the environment
-The private tokens needed to access some services like supabase or google maps API are stored in the `.env` file. The structure of the file looks like below:
+
+The private tokens needed to access some APIs like supabase or google maps API are stored in a `.env` file (root folder). The structure of the file should resemble the following:
 ```
 VITE_SUPABASE_URL=https://qroibfykkmnxgdntwqne.supabase.co
 VITE_SUPABASE_ANON_KEY=<supabase key>
@@ -25,13 +26,15 @@ VITE_GUN_TESTUSER_PASS=<gundb password>
 
 VITE_GOOGLE_API_KEY=<google maps api key>
 ```
+
 email xcorat@protonmail.com if you want to share some of these keys with the main build.
 
 4. Run development server
 ```
 npm run dev
 ```
-You can test the app on a web brower at http://localhost:3000
+
+Now you can test the app on a web brower at http://localhost:3000
 
 4. Testing builds
 
