@@ -50,3 +50,7 @@ npx cap open android
 ```
 
 then you can build the an apk from the android studio, transfer to a phone and test. Probably faster way to do, but this is my workflow for now
+
+5. Android Studio
+
++ Make sure you have Google Play services SDK tool installed. We need this for location services

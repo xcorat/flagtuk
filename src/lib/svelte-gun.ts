@@ -10,7 +10,7 @@ import open from "gun/lib/open.js"
 //	https://svelte.dev/repl/53ecf1dc52c245faba204f3ca94d5cde?version=3.16.5
 // 	But removed the `extendedGun example related stuff since it wasn't working.
 
-export const gun = Gun(['https://gun-manhattan.herokuapp.com/gun'])
+export const gun = Gun(['https://gun-manhattan.herokuapp.com/gun', 'https://flagtuk-gun-server.herokuapp.com/gun'])
 export const user = gun.user().recall({sessionStorage: true});
 
 // TODO: this is probably not the right way to do things (undefined or bool?)
