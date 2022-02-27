@@ -6,6 +6,9 @@
 
     import Nav from "../components/nav.svelte"
 
+
+	let themeName = "garden";
+
     const supabaseUser = supabase.auth.user();
     user.set({
         email: supabaseUser?.email?? null,
@@ -21,7 +24,14 @@
     });
 </script>
 
-<div class='max-w-6xl mx-auto bg-base-100 min-h-screen' data-theme="garden">
+<div class='max-w-6xl mx-auto bg-base-100 min-h-screen' data-theme='{themeName}'>
     <Nav/>
     <slot></slot>
 </div>
+
+<style>
+    /* TODO: not sure why this is needed... */
+    * {
+        color: hsl(--bc);
+    }
+</style>
