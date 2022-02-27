@@ -1,38 +1,49 @@
-# create-svelte
+# FlagTUK
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte);
+## Prerequisites
 
-## Creating a project
+You will need node package manager `npm` for starters. If you want to simulate the app on android or build apk bundles, also install Android Studio
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Instructions for testing
 
-```bash
-# create a new project in the current directory
-npm init svelte@next
-
-# create a new project in my-app
-npm init svelte@next my-app
+1. Clone the repository
 ```
+git --verbose https://github.com/xcorat/flagtuk.git
+```
+2. Install the dependencies
+```
+npm i
+```
+3. Add private tokens to the environment
+The private tokens needed to access some services like supabase or google maps API are stored in the `.env` file. The structure of the file looks like below:
+```
+VITE_SUPABASE_URL=https://qroibfykkmnxgdntwqne.supabase.co
+VITE_SUPABASE_ANON_KEY=<supabase key>
 
-> Note: the `@next` is temporary
+VITE_GUN_TESTUSER_ALIAS=<gundb user>
+VITE_GUN_TESTUSER_PASS=<gundb password>
 
-## Developing
+VITE_GOOGLE_API_KEY=<google maps api key>
+```
+email xcorat@protonmail.com if you want to share some of these keys with the main build.
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
+4. Run development server
+```
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
+You can test the app on a web brower at http://localhost:3000
 
-## Building
+4. Testing builds
 
-Before creating a production version of your app, install an [adapter](https://kit.svelte.dev/docs#adapters) for your target environment. Then:
-
-```bash
+First, build a deployment version of the app,
+```
 npm run build
 ```
 
-> You can preview the built app with `npm run preview`, regardless of whether you installed an adapter. This should _not_ be used to serve your app in production.
+For testing on android, sync the web build and open in android studio.
+```
+npx cap sync
+npx cap open android
+```
+
+then you can build the an apk from the android studio, transfer to a phone and test. Probably faster way to do, but this is my workflow for now
