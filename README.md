@@ -54,3 +54,4 @@ then you can build the an apk from the android studio, transfer to a phone and t
 5. Android Studio
 
 + Make sure you have Google Play services SDK tool installed. We need this for location services
++ Create a device, tested with Nexus 5, Android R/API level 30.

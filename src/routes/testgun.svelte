@@ -5,17 +5,16 @@
 
     let username = "anonymous"
 
-
     const addDriver = () => {
         // @ts-ignore
         drivers.add(username, null, true);
     }
 
-
     const addRider = () => {
         const date = new Date();
         let timeout = date.getTime() + 100000;
-        riders.delete(username, null, timeout);
+        // @ts-ignore
+        riders.add(username, null, timeout);
     }
 
     const ref = gun.get("drivers");//.get('peers')
@@ -27,14 +26,14 @@
 {#each Object.entries($drivers) as [key, {username, location, ready, icon}] (key)}
 <div style="padding: .4rem">
     {icon} {username} @ {location} | {ready?'Ready':'Not Ready'}
-    <a class='btn btn-ghost' href="/" on:click|preventDefault={() => riders.delete(key)}>delete {key}</a>
+    <a class='btn btn-ghost' href="/" on:click|preventDefault={() => drivers.delete(key)}>delete {key}</a>
 </div>
 {/each}
 
 {#each Object.entries($riders) as [key, {username, location, timeout, icon}] (key)}
 <div style="padding: .4rem">
     {icon} {username} @ {location} | timeout at:  {timeout}
-    <a class='btn btn-ghost' href="/" on:click|preventDefault={() => drivers.delete(key)}>delete {key}</a>
+    <a class='btn btn-ghost' href="/" on:click|preventDefault={() => riders.delete(key)}>delete {key}</a>
 </div>
 {/each}
 

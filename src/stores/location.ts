@@ -13,17 +13,17 @@ function degreesToRadians(degrees) {
 //      way to calculate this, ideally without google API
 //      maybe we can make it more accurate by also using the speed
 function distanceInKmBetweenEarthCoordinates(loc1, loc2) {
-    var earthRadiusKm = 6371;
+    const earthRadiusKm = 6371;
 
-    var dLat = degreesToRadians(loc2.lat-loc2.lat);
-    var dLon = degreesToRadians(loc2.lng-loc1.lng);
+    const dLat = degreesToRadians(loc2.lat-loc2.lat);
+    const dLon = degreesToRadians(loc2.lng-loc1.lng);
 
-    var lat1 = degreesToRadians(loc1.lat);
-    var lat2 = degreesToRadians(loc2.lat);
+    const lat1 = degreesToRadians(loc1.lat);
+    const lat2 = degreesToRadians(loc2.lat);
 
-    var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+    const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
             Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
     return earthRadiusKm * c;
 }
 
@@ -33,8 +33,8 @@ const startLocWatch = (set) => {
         timeout: 5000,
         maximumAge: 5000,
     }, (loc_input, err) => { 
-        let loc = {lat: loc_input.coords.latitude, lng: loc_input.coords.longitude};
-        let speed = loc_input.coords.speed;
+        const loc = {lat: loc_input.coords.latitude, lng: loc_input.coords.longitude};
+        const speed = loc_input.coords.speed;
         set({loc, speed});
     });
     return geoWatchId;

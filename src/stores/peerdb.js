@@ -58,7 +58,10 @@ export const riders = customStore(riderRef.map(), {
 		console.log(rref);
 		setTimeout(() => { riderRef.get(key).put(null) }, timeout);
 	},
-	delete: key => riderRef.get(key).put(null),
+	delete: key => {
+		riderRef.get(key).put(null);
+		console.log('rider delete', key);
+	},
 });
 
 const driverRef = gun.get("drivers");
@@ -69,5 +72,8 @@ export const drivers = customStore(driverRef.map(), {
 				ready,
 				icon: "🚕" 
 			}),
-	delete: key => driverRef.get(key).put(null),
+	delete: key => {
+		driverRef.get(key).put(null);
+		console.log(key);
+	}
 });
