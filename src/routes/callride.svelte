@@ -106,18 +106,22 @@
     <div class='map-view'>
         <div class="map map-pincenter" class:hide-pin={!pickingLoc.isPicking}
              class:hidden={!gApiReady} bind:this={mapContainer}/>
-            { #if pickingLoc.isPicking}
+        { #if pickingLoc.isPicking}
+        <!-- TODO: figure a way to draw the button over the map -->
+        <div class="mt-1 w-full text-center">
             <button class="btn btn-primary" on:click="{setLoc}">
                 Set {pickingLoc.targetName}
             </button>
-            { /if}
+        </div>
+        { /if}
         <p class="text-center align-center" class:hidden={gApiReady}>
             Google map view is being loaded... </p>
     </div>
-    <div class="p-8 flex flex-col space-y-5 shadow-md form-control">
+    <div class="p-8 flex flex-col space-y-5 shadow-md form-control text-center">
         { #if loc}  
+            <div class="flex flex-col md:flex-row md:space-x-5 space-y-5 md:space-y-0">
             <div class="input-group">
-                <input class="flex input input-bordered input-primary w-full max-w-xs" placeholder="Start" bind:value="{startLoc.name}"> 
+                <input class="input input-bordered input-primary w-full" placeholder="Start" bind:value="{startLoc.name}"> 
                 <button class="btn btn-square" on:click="{() => {
                     pickingLoc = { isPicking: true, targetName: "Start"} } }">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pin-map-fill" viewBox="0 0 16 16">
@@ -126,15 +130,16 @@
                     </svg>
                 </button>
             </div>
-            <div class="input-group">
-                <input class="input input-bordered input-primary w-full max-w-xs" placeholder="Destination" bind:value="{endLoc.name}">
-                <button class="btn btn-square" on:click="{() => {
+            <div class="input-group ">
+                <input class="input input-bordered input-primary w-full" placeholder="Destination" bind:value="{endLoc.name}">
+                <button class="btn btn-square" class:btn-disabled="{!startLoc.filled}" on:click="{() => {
                     pickingLoc = { isPicking: true, targetName: "Destination"} } }">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pin-map-fill" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8l3-4z"/>
                         <path fill-rule="evenodd" d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z"/>
                     </svg>
                 </button>
+            </div>
             </div>
         <p>You are near ({loc.lat}, {loc.lng})</p>
         { :else}
@@ -181,7 +186,7 @@
     }
 
     .map-view > .hidden  {
-        display: none;
+        display: hidden;
     }
 
 </style>

@@ -3,8 +3,8 @@
     //      We probably want centralized locale settings instead.
 
     import {onMount} from 'svelte';
-import { subscribe } from 'svelte/internal';
-    import { loc_data } from '../stores/location'
+    import { subscribe } from 'svelte/internal';
+    import { loc_data } from '../stores/location';
 
     let container;
     let map;
