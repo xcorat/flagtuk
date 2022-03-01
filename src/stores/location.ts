@@ -8,22 +8,32 @@ import {log} from "../stores/log";
 // TODO: We probably should move the distance calculation here as well,
 //      possibly with a switch to turn distance tracking on/off
 
+// DEBUG: note that the callback on the watchPosition gets fired twice 
+//  once with the old location and then with the new. Check why.
+
 const startLocWatch = (set) => {
     const geoWatchId = Geolocation.watchPosition({
         enableHighAccuracy: true,
         timeout: 5000,
         maximumAge: 5000,
     }, (loc_input, err) => { 
+        // Handle errors?
+        if(err) return;
         const loc = {lat: loc_input.coords.latitude, lng: loc_input.coords.longitude};
         const speed = loc_input.coords.speed;
-        set({loc, speed});
+        set({loc, speed, error: 0});
     });
     return geoWatchId;
 }
 
+// `loc_data.error`:
+//      - `undefined` when if location not initialized,
+//      - `0` if no error and the location is valis
+//      - any 'true-ish' value for valid errors (not implemented)
 export const loc_data = readable({
         loc: {lat: undefined, lng: undefined},
         speed: undefined,
+        err: undefined,
     }, function start(set) {
         let watchId = startLocWatch(set); 
         return () => { watchId.then( id => Geolocation.clearWatch({ id }) )}

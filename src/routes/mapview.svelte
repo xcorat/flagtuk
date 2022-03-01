@@ -5,7 +5,6 @@
     export let gApiReady = false;//google??.maps? true: false;
 
     const googleApiKey = import.meta.env.VITE_GOOGLE_API_KEY as string;
-    console.log(googleApiKey);
 
     const initializeGapi = async () => {
         console.log('gapi ready')
@@ -33,7 +32,7 @@
 
 <div>
     {#if gApiReady}
-        <Map/>
+       <Map/>
     {:else}
         <p>Google map view is being loaded... </p>
     {/if}
